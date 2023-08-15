@@ -1,0 +1,274 @@
+\input{preamble.tex}
+
+
+\title{Assignment - 01\\ CS5691 Pattern Recognition and Machine Learning}
+\author{Ramasamy Kandasamy\\ CS22M068}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+
+\section*{Question - 1}
+
+\subsection*{Introduction}
+
+\subsubsection*{Organization of code}
+
+There are four files:
+
+\begin{itemize}
+\item \texttt{main.py}: This code is organized in the format of the assignment questions. 
+\item \texttt{data.py}: This file contains all the functions to do PCA and clustering. Each of these functions are methods in the object data. The object data contains  the original dataset and other derived information such the PC components, cluster idenitity etc.
+\item \texttt{plot.py}: This file contains all the code need to generate the plots.
+\item \texttt{utils.py}: Contains \texttt{custom\_eigh} function which returns Eigen values and vector in the decreasing order of the eigen value.
+\end{itemize}
+
+\begin{mdframed}[backgroundcolor=SlateGray2!40,linecolor=Firebrick4]
+\textbf{How to reproduce the plots?}\\
+Unzip the file \texttt{Solutions\_CS22M068}. On a Linux machine run the following commands.
+\begin{verbatim}
+$ mkdir plots	
+$ python3 main.py
+\end{verbatim}
+\end{mdframed}
+
+\subsubsection*{Exploratory data analysis}
+
+A plot of the input data on a cartesian coordinate, indicates that the the datapoints are not linearly independent.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data.png}
+\end{figure}
+
+
+\pagebreak
+
+
+\subsection*{Q1-(i) Running PCA with centering}
+
+The code for running PCA in \texttt{data.py} file in the function \texttt{pca}. \\
+
+The result of running PCA are as follows. The following information would be output into the standard output when \texttt{main.py} is run.
+
+\begin{verbatim}
+PCA with centering
+==================
+PC - 1  :  [0.323516  0.9462227]
+PC - 2  :  [-0.9462227  0.323516 ]
+
+
+Variance along each of the principal components
+-----------------------------------------------
+Variance along PC- 1  is  52.092671607646466 %.
+Variance along PC- 2  is  47.90732839235353 %.	
+\end{verbatim}
+
+The plot of data points along the principal component axes are as follows.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/PCA.png}
+\end{figure}
+
+\subsection*{Q1-(ii) Running PCA w/o centering}
+
+The code for running PCA in \texttt{data.py} file in the function \texttt{pca}. \\
+
+The result of running PCA without centering are as follows:
+
+\begin{verbatim}
+PCA without centering
+=====================
+PC - 1  :  [0.323516  0.9462227]
+PC - 2  :  [-0.9462227  0.323516 ]
+
+
+Variance along each of the principal components
+-----------------------------------------------
+Variance along PC- 1  is  52.092671607646466 %.
+Variance along PC- 2  is  47.90732839235353 %.		
+\end{verbatim}
+
+The plot of data points along the principal component axes are as follows.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/PCA_wo_center.png}
+\end{figure}
+
+
+There is no difference in the value of principal components and variance of data along the principal components. This is also reflected in the PCA plot. They look identical for both PCA with and without centering. \\
+
+
+Here centering does not change anything because the data is already nearly centered. The center of the data points is as follows:\\
+
+\begin{verbatim}
+Print mean of the data points
+=============================
+Center of the data:  [2.398081733190338e-17, -5.1514348342607266e-17]	
+\end{verbatim}
+
+\subsection*{Q1-(iii). A.}
+
+Kernel PCA was performed with polynomial kernel given in the assignment with $d=2$ and $d=3$. Plots of data point onto the top 2 principal components for these two kernels are as follows:\\
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_poly_2.png}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_poly_3.png}
+\end{figure}
+
+
+\subsection*{Q1-(iii). B.}
+
+Kernel PCA was performed with gaussian kernel given in the assignment with $\sigma = \{0.1, 0.2, \cdots, 1.0\}$ .Plots of data point onto the top 2 principal components for these two kernels are as follows:
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_1.png}
+
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_2.png}
+
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_3.png}
+
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_4.png}
+
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_5.png}
+
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_6.png}
+
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_7.png}
+
+ 
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_8.png}
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_9.png}
+
+	\centering
+	\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_gauss_10.png}
+
+
+\subsection*{Q1-(iv)}
+
+\raggedright
+
+I think the kernel best suited for this data set is polynomial kernel in assignment with $d = 2$. The justification is as follows. 
+
+The data is in the form of concentric circles. The data are closely related based on radius. Plotting the data in polar coordinated gives:\\
+
+
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/data_polar.png}
+
+
+\raggedright
+In this coordinate the datapoints are linearly independent. 
+This plot looks simillar to the plot obtained by polynomial kernel with $d=2$
+
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/data_kernel_PCA_poly_2.png}
+
+
+\pagebreak
+
+\raggedright
+
+\section*{Q2}
+
+\subsection*{Q2-{i} K - means clustering for 5 different initilizations}
+
+\vspace*{3pt}
+\textbf{Initialization-1}\\
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/cluster_1.png}
+\includegraphics[width = 0.5\textwidth]{../plots/Error_Function_1.png}\\
+\raggedright
+
+\textbf{Initialization-2}\\
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/cluster_2.png}
+\includegraphics[width = 0.5\textwidth]{../plots/Error_Function_2.png}\\
+\raggedright
+
+\textbf{Initialization-3}\\
+
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/cluster_3.png}
+\includegraphics[width = 0.5\textwidth]{../plots/Error_Function_3.png}\\
+\raggedright
+
+\textbf{Initialization-4}\\
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/cluster_4.png}
+\includegraphics[width = 0.5\textwidth]{../plots/Error_Function_4.png}\\
+\raggedright
+
+\textbf{Initialization-5}\\
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/cluster_5.png}
+\includegraphics[width = 0.5\textwidth]{../plots/Error_Function_5.png}\\
+\raggedright
+
+\subsection*{Q2-(ii)}
+
+K-means clustering were performed for $K = \{2, 3, 4, 5\}$ and the datapoint were plotted on top two principal components along with voronoi regions.
+
+\includegraphics[width = 0.5\textwidth]{../plots/voronoi_k_2.png}
+\includegraphics[width = 0.5\textwidth]{../plots/voronoi_k_3.png}
+\includegraphics[width = 0.5\textwidth]{../plots/voronoi_k_4.png}
+\includegraphics[width = 0.5\textwidth]{../plots/voronoi_k_5.png}
+
+\subsection*{Q2-iii}
+\textcolor{magenta}{\textbf{Choose appropriate kernel and plot the data.}}\\
+
+For this data I would choose Gaussian kernel for Gaussian kernels with $\sigma = 0.7$ or $\sigma = 0.8$. 
+
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/spectral_cluster_gauss_7.png}
+\includegraphics[width = 0.5\textwidth]{../plots/spectral_cluster_gauss_8.png}
+\raggedright
+
+\textcolor{magenta}{\textbf{Explain your choice of kernel based on the output you obtained.}}\\
+
+The clusters are plotted below. A good kernel should be able to cluster point in one circle togather. While this does not cluster all the four circles of points, it performs better than the others. 
+
+\subsection*{Q2-(iv)}
+\textbf{\textcolor{magenta}{How does this mapping perform?}}\\
+Clustering was performed using the novel approach described in the assginment Q2-iv. This clustering is comparable to spectral clustering but not as good as spectral clustering. The best clustering results are achieved for Gaussian kernels with $\sigma = 6$ and $\sigma = 7$, as shown in the figures below.
+
+
+
+\centering
+\includegraphics[width = 0.5\textwidth]{../plots/novel_cluster_gauss_6.png}
+\includegraphics[width = 0.5\textwidth]{../plots/novel_cluster_gauss_7.png}
+\raggedright
+
+Note that here the inner-most circle is divided into two clusters eventhough there are no such obvious two clusters. Therefore I think that this novel clustering is inferior to spectral clustering.
+
+\textbf{\textcolor{magenta}{Explain your insights.}}\\
+I think the reason spectral clustering performs is that it undergoes several rounds of reassignment and therefore achieves refinement of existing cluster allocation. However this takes time. The novel method here achive quite good results with just the first round of allocation. I think that these two methods could be combined to produce high quality of clustering in short time. That is, I think the novel method could be used to initialize the clustering and then spectral clustering can used to refine it. Since we are starting with an already good cluster allocation, the Lloyd's algorithm might converge faster.
+
+
+
+\end{document}
